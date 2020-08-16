@@ -1,0 +1,15 @@
+@import './../../../../styles/variables';
+
+.background__noresults {
+  text-align: center;
+  opacity: $opacity3;
+
+  i {
+    color: #ffffff;
+    font-size: $gap4;
+  }
+
+  h3 {
+    margin-top: $gap2;
+  }
+}

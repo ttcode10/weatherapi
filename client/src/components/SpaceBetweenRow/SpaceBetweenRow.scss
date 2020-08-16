@@ -1,0 +1,16 @@
+.space-between-row__container {
+  display: flex;
+  justify-content: space-between;
+
+  .space-between-row__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .space-between-row__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

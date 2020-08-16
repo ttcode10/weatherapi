@@ -1,0 +1,15 @@
+@import './../../styles/variables';
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.background__color--day {
+  background: radial-gradient(#41A0CE, #011762);
+}
+
+.background__color--night {
+  background: radial-gradient(#27407C, #03081A);
+}
