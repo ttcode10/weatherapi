@@ -1,5 +1,6 @@
 .space-between-row__container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 
   .space-between-row__left {

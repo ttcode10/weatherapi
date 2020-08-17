@@ -1,10 +1,10 @@
 import React from 'react';
 import './SingleValueText.scss';
 
-const SingleValueText = ({ largeFontSize, children, bold }) => {
+const SingleValueText = ({ largeFontSize, children, bold, unit }) => {
   return (
     <div className={ bold ? 'bold-text' : '' }>
-      { largeFontSize ? <h1>{ children }</h1> : <p>{ children }</p> }
+      { largeFontSize ? <h1>{ children } {unit}</h1> : <p>{ children } {unit}</p> }
     </div>
   );
 }

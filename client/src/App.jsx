@@ -24,8 +24,3 @@ const App = () => (
 );
 
 export default App;
-
-{/* <SingleValueText bold>Shanghai</SingleValueText>
-<KeyValuePairText title='Wind Speed' unit='mph'>8</KeyValuePairText>
-<WeatherDetail />
-<WeatherIcon /> */}

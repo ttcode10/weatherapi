@@ -1,10 +1,10 @@
 import React from 'react';
 import './WeatherIcon.scss';
 
-const WeatherIcon = ({ children }) => {
+const WeatherIcon = ({ iconName }) => {
   return (
     <div className='weather-icon'>
-      <img src="https://www.metaweather.com/static/img/weather/lc.svg" alt="weather icon"/>
+      <img src={`https://www.metaweather.com/static/img/weather/${iconName}.svg`} alt="weather icon"/>
     </div>
   );
 }
