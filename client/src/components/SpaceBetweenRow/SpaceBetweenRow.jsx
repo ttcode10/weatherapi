@@ -1,4 +1,5 @@
 import React from 'react';
+import './SpaceBetweenRow.scss';
 
 const SpaceBetweenRow = ({ left, right }) => {
   return (

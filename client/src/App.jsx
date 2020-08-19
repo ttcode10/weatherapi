@@ -12,7 +12,7 @@ import Routes from './routes';
 const App = () => (
   <div>
 
-  <Background beforeSearch >
+  <Background >
     <Header />
     <div className='container'>
       <Router>
