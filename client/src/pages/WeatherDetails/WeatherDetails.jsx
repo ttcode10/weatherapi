@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import axios from 'axios';
-import SingleValueText from './../../components/SingleValueText';
-import KeyValuePairText from './../../components/KeyValuePairText';
+import convertWeatherIconNaming from './convertWeatherIconNaming';
+
+import Text from './../../components/Text';
 import WeatherIcon from './../../components/WeatherIcon';
 import SpaceBetweenRow from './../../components/SpaceBetweenRow';
 import Card from './../../components/Card';
 import Spinner from './../../components/Spinner';
 import NotFound from './../NotFound';
-
 
 const WeatherDetails = props => {
   const [fetchData, setFetchData] = useState({
@@ -18,6 +19,7 @@ const WeatherDetails = props => {
   useEffect(() => {
     async function getWeatherData(woeid) {
       try {
+        console.log('1');
         const response = await fetch(`/api/weather/${woeid}`);
         const data = await response.json();
         setFetchData({
@@ -31,65 +33,81 @@ const WeatherDetails = props => {
     getWeatherData();
   }, []);
 
-  const getField = () => {
-    return requestedData.weather && requestedData.weather[0].main;
-  };
-
-  const parseIntTemp = temp => {
-    return parseInt(temp);
-  }
-
   const requestedData = fetchData.weatherData;
 
-  const weatherInfo = [
-    { title: 'Wind Speed', unit: 'mph', children: '3' },
-    { title: 'Humidity', unit: '%', children: '3' },
-    { title: 'Visibility', unit: 'km', children: '5' },
+  const calculateTimeFromNow = (time) => {
+    return moment.unix(time).fromNow();
+  }
 
-    // { title="Humidity", unit="%", children="3"  },
-    // { title="Visibility", unit="km", children="3"  },
-    // { title="Sunrise" },
-    // { title="Sunset" }
+  const getWeatherIconCode = () => {
+    const iconCode = requestedData.weather[0].icon;
+    console.log(iconCode);
+    return convertWeatherIconNaming.iconCode;
+  };
+
+  const currentWeatherInfo = [
+    { size:'lg', title: '', unit: '', children: `${requestedData.name && requestedData.name}` },
+    { size:'sm', title: 'Updated on', unit: '', children: `${requestedData.dt && calculateTimeFromNow(requestedData.dt)}` },
+    { size:'lg', title: '', unit: '°C', children: `${requestedData.main && requestedData.main.temp.toFixed(0)}` },
+    { size:'sm', title: '', unit: '', children: `${requestedData.weather && requestedData.weather[0].main}` },
+    { size:'sm', title: 'Wind Speed', unit: 'mph', children: `${requestedData.wind && requestedData.wind.speed}` },
+    { size:'sm', title: 'Humidity', unit: '%', children: `${requestedData.main && requestedData.main.humidity}` },
+    { size:'sm', title: 'Visibility', unit: 'km', children: `${(requestedData.visibility/1000).toFixed(1)}` },
   ];
 
   if (fetchData.loaded === false) {
     return (<Spinner />);
-  } else if ((fetchData.loaded === true) && (requestedData === {})) {
+  } else if ((fetchData.loaded === true) && (fetchData.weatherData === {} || fetchData.weatherData === 'Server error')) {
     return (<NotFound />);
   } else {
     return (
       <>
         <SpaceBetweenRow
           left={
-            <>
-              <SingleValueText largeFontSize>{requestedData.name}</SingleValueText>
-              <KeyValuePairText title="Last update">{requestedData.dt}</KeyValuePairText>
-            </>
+            currentWeatherInfo.slice(0, 2).map(item =>
+              <Text
+                key={item.title}
+                title={item.title}
+                unit={item.unit}
+                size={item.size}
+              >
+                {item.children}
+              </Text>
+            )
           }
           right={
-            <>
-              <SingleValueText largeFontSize unit="°C">{parseIntTemp(requestedData.main.temp)}</SingleValueText>
-              <SingleValueText>{getField()}</SingleValueText>
-            </>
+            currentWeatherInfo.slice(2, 4).map(item =>
+              <Text
+                key={item.title}
+                title={item.title}
+                unit={item.unit}
+                size={item.size}
+              >
+                {item.children}
+              </Text>
+            )
           }
         />
         <SpaceBetweenRow
           left={
-            weatherInfo.map(item => <KeyValuePairText title={item.title} unit={item.unit}>{item.children}</KeyValuePairText>)
-            // <>
-            //   <KeyValuePairText title="Wind Speed" unit="mph">3</KeyValuePairText>
-            //   <KeyValuePairText title="Humidity" unit="%">3</KeyValuePairText>
-            //   <KeyValuePairText title="Visibility" unit="km">3</KeyValuePairText>
-            //   <span><KeyValuePairText title="Sunrise">05:48</KeyValuePairText> <KeyValuePairText title="Sunset">20:20</KeyValuePairText></span>
-            // </>
+            currentWeatherInfo.slice(4, 8).map(item =>
+              <Text
+                key={item.title}
+                title={item.title}
+                unit={item.unit}
+                size={item.size}
+              >
+                {item.children}
+              </Text>
+            )
           }
           right={
             <>
-              <WeatherIcon iconName="sn" />
+              <WeatherIcon iconName='hr' />
             </>
           }
         />
-        <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName="sn" unit="°C" />
+        <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName={getWeatherIconCode} unit="°C" />
       </>
     );
   }
