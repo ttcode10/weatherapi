@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-import styles from './WeatherDetails.module.scss';
+import styles from './WeatherDetailPage.module.scss';
 
 import convertWeatherIconNaming from './convertWeatherIconNaming';
 
-import Text from './../../components/Text';
-import WeatherIcon from './../../components/WeatherIcon';
-import Card from './../../components/Card';
-import Spinner from './../../components/Spinner';
+import Text from '../../components/Text';
+import WeatherIcon from '../../components/WeatherIcon';
+import Card from '../../components/Card';
+import Spinner from '../../components/Spinner';
 import NotFound from '../../components/NotFound';
 
-const WeatherDetails = props => {
+const WeatherDetailPage = props => {
   const [fetchData, setFetchData] = useState({
     loaded: false,
     weatherData: {}
@@ -104,28 +104,9 @@ const WeatherDetails = props => {
             <Card date="2020-08-20" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
           </card>
         </row3>
-
-        
-        {/* <row3 className={styles.cards}>
-          <card className={styles.card}>
-            <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
-          </card>
-          <card className={styles.card}>
-            <Card date="2020-08-17" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
-          </card>
-          <card className={styles.card}>
-            <Card date="2020-08-18" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
-          </card>
-          <card className={styles.card}>
-            <Card date="2020-08-19" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
-          </card>
-          <card className={styles.card}>
-            <Card date="2020-08-20" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
-          </card>
-        </row3> */}
       </>
     );
   };
 };
 
-export default WeatherDetails;
+export default WeatherDetailPage;
