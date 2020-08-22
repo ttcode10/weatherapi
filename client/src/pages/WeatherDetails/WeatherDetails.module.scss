@@ -1,0 +1,34 @@
+@import './../../styles/variables';
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+
+  .item_left {
+    text-align: left;
+  }
+
+  .item_right {
+    text-align: right;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: $gap2 $gap2;
+  grid-template-areas: ". . . . .";
+}
+
+// .cards {
+//   display: flex;
+//   flex-flow: row nowrap;
+//   justify-content: space-between;
+//   // align-content: center;
+
+//   .card {
+//     margin: $gap2;
+//   }
+// }

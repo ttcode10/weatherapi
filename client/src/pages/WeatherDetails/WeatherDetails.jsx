@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
+import moment from 'moment'; 
 import axios from 'axios';
+
+import styles from './WeatherDetails.module.scss';
+
 import convertWeatherIconNaming from './convertWeatherIconNaming';
 
 import Text from './../../components/Text';
 import WeatherIcon from './../../components/WeatherIcon';
-import SpaceBetweenRow from './../../components/SpaceBetweenRow';
 import Card from './../../components/Card';
 import Spinner from './../../components/Spinner';
-import NotFound from './../NotFound';
+import NotFound from '../../components/NotFound';
 
 const WeatherDetails = props => {
   const [fetchData, setFetchData] = useState({
@@ -41,19 +43,35 @@ const WeatherDetails = props => {
 
   const getWeatherIconCode = () => {
     const iconCode = requestedData.weather[0].icon;
-    console.log(iconCode);
-    return convertWeatherIconNaming.iconCode;
+    return convertWeatherIconNaming[iconCode];
   };
 
   const currentWeatherInfo = [
     { size:'lg', title: '', unit: '', children: `${requestedData.name && requestedData.name}` },
-    { size:'sm', title: 'Updated on', unit: '', children: `${requestedData.dt && calculateTimeFromNow(requestedData.dt)}` },
+    { size:'sm', title: 'Updated', unit: '', children: `${requestedData.dt && calculateTimeFromNow(requestedData.dt)}` },
     { size:'lg', title: '', unit: '°C', children: `${requestedData.main && requestedData.main.temp.toFixed(0)}` },
     { size:'sm', title: '', unit: '', children: `${requestedData.weather && requestedData.weather[0].main}` },
+    { size:'sm', title: 'Max Temperature', unit: '°C', children: `${requestedData.main && requestedData.main.temp_max.toFixed(0)}` },
+    { size:'sm', title: 'Min Temperature', unit: '°C', children: `${requestedData.main && requestedData.main.temp_min.toFixed(0)}` },
     { size:'sm', title: 'Wind Speed', unit: 'mph', children: `${requestedData.wind && requestedData.wind.speed}` },
     { size:'sm', title: 'Humidity', unit: '%', children: `${requestedData.main && requestedData.main.humidity}` },
     { size:'sm', title: 'Visibility', unit: 'km', children: `${(requestedData.visibility/1000).toFixed(1)}` },
   ];
+
+  const sliceData = (start, end) => {
+    return (
+      currentWeatherInfo.slice(start,end).map(item =>
+        <Text
+          key={item.children}
+          title={item.title}
+          unit={item.unit}
+          size={item.size}
+        >
+          {item.children}
+        </Text>
+      )
+    );
+  };
 
   if (fetchData.loaded === false) {
     return (<Spinner />);
@@ -62,55 +80,53 @@ const WeatherDetails = props => {
   } else {
     return (
       <>
-        <SpaceBetweenRow
-          left={
-            currentWeatherInfo.slice(0, 2).map(item =>
-              <Text
-                key={item.title}
-                title={item.title}
-                unit={item.unit}
-                size={item.size}
-              >
-                {item.children}
-              </Text>
-            )
-          }
-          right={
-            currentWeatherInfo.slice(2, 4).map(item =>
-              <Text
-                key={item.title}
-                title={item.title}
-                unit={item.unit}
-                size={item.size}
-              >
-                {item.children}
-              </Text>
-            )
-          }
-        />
-        <SpaceBetweenRow
-          left={
-            currentWeatherInfo.slice(4, 8).map(item =>
-              <Text
-                key={item.title}
-                title={item.title}
-                unit={item.unit}
-                size={item.size}
-              >
-                {item.children}
-              </Text>
-            )
-          }
-          right={
-            <>
-              <WeatherIcon iconName='hr' />
-            </>
-          }
-        />
-        <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName={getWeatherIconCode} unit="°C" />
+        <row1 className={styles.row}>
+          <location className={styles.item_left}>{sliceData(0,2)}</location>
+          <temp className={styles.item_right}>{sliceData(2,4)}</temp>
+        </row1>
+        <row2 className={styles.row}>
+          <weatherdetails className={styles.item_left}>{sliceData(4,9)}</weatherdetails>
+          <icon className={styles.item_right}><WeatherIcon iconName={getWeatherIconCode()} /></icon>
+        </row2>
+        <row3 className={styles.grid}>
+          <card className={styles.card}>
+            <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-17" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-18" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-19" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-20" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+        </row3>
+
+        
+        {/* <row3 className={styles.cards}>
+          <card className={styles.card}>
+            <Card date="2020-08-16" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-17" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-18" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-19" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+          <card className={styles.card}>
+            <Card date="2020-08-20" minTemp="17" maxTemp="24" iconName={getWeatherIconCode()} unit="°C" />
+          </card>
+        </row3> */}
       </>
     );
-  }
-}
+  };
+};
 
 export default WeatherDetails;

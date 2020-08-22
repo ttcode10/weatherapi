@@ -4,7 +4,7 @@ import './Search.scss';
 const Search = () => {
   return (
     <div className='search__box'>
-      <input type="text" placeholder="Search any world cities..." />
+      <input type="text" placeholder="Search any world city..." />
       <span className="fa fa-search no-results"></span>
     </div>
   );

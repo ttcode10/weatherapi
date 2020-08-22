@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Search from '../pages/Search';
 import WeatherDetails from '../pages/WeatherDetails';
-import NotFound from '../pages/NotFound';
+// import NotFound from '../pages/NotFound';
 
 const Routes = props => {
   return (
@@ -10,7 +10,7 @@ const Routes = props => {
       <Switch>
         <Route exact path="/" component={Search} />
         <Route exact path="/weather/:woeid" component={WeatherDetails} />
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
       </Switch>
     </>
   );

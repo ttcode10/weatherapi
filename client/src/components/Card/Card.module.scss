@@ -1,6 +1,6 @@
 @import './../../styles/variables';
 
-.card__container {
+.container {
   background-color: rgba($color: #ffffff, $alpha: 0.3);
   border-radius: $gap1;
   display: flex;
@@ -8,13 +8,15 @@
   padding: $gap1;
   width: 24%;
   text-align: center;
+  width: 100%;
+  padding: $gap2;
 
-  .card__inline-text {
+  .icon {
+    padding: $gap1 $gap3;
+  }
+
+  .text {
     display: inline-flex;
     justify-content: center;
   }
-
-  // .card__weather-icon__container {
-  //   // width: 16%;
-  // }
 }

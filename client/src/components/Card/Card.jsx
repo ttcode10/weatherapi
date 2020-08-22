@@ -1,17 +1,24 @@
 import React from 'react';
-import SingleValueText from './../SingleValueText/';
+
+import styles from './Card.module.scss';
+
+// import Text from './../Text/';
+import Text from './../Text';
 import WeatherIcon from './../WeatherIcon/';
-import './Card.scss';
 
 const Card = ({ date, minTemp, maxTemp, iconName, unit }) => {
   return (
-    <div className='card__container'>
-      <SingleValueText>{date}</SingleValueText>
-      <WeatherIcon iconName={iconName} />
-      <div className='card__inline-text'>
-        <SingleValueText unit={unit} >{minTemp}</SingleValueText><p>  ~  </p><SingleValueText unit={unit} >{maxTemp}</SingleValueText>
-      </div>
-    </div>
+    <container className={styles.container}>
+      <date className={styles.text}>
+        <Text size='md'>{date}</Text>
+      </date>
+      <icon className={styles.icon}>
+        <WeatherIcon iconName={iconName} />
+      </icon>
+      <temp className={styles.text}>
+        <Text size='sm' unit={unit}>{minTemp}</Text><p>  ~  </p><Text size='sm' unit={unit}>{maxTemp}</Text>
+      </temp>
+    </container>
   );
 }
 
