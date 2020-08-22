@@ -1,10 +1,12 @@
 import React from 'react';
-import './Header.scss';
+
+import styles from './Header.module.scss';
+
 import Search from './components/Search';
 
 const Header = () => {
   return (
-    <div className='header__container'>
+    <div className={styles.container}>
       <Search />
     </div>
   );

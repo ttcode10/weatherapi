@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from './Card.module.scss';
 
-// import Text from './../Text/';
 import Text from './../Text';
 import WeatherIcon from './../WeatherIcon/';
 

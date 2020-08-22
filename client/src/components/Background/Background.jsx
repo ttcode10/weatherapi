@@ -1,12 +1,20 @@
 import React from 'react';
-import './Background.scss';
+import classNames from 'classnames/bind';
 
-const Background = ({night, children}) => (
-  <div className={`background ${night ? 'background__color--night' : 'background__color--day'}`} >
-    <div className="background__container">
+import styles from './Background.module.scss';
+
+const cx = classNames.bind(styles);
+
+const Background = ({night, children}) => {
+  return (
+    <div className={cx({
+      background: true,
+      day: true,
+      night: night,
+    })}>
       {children}
     </div>
-  </div>
-);
+  );
+};
 
 export default Background;

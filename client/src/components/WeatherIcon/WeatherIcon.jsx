@@ -1,11 +1,10 @@
 import React from 'react';
-import './WeatherIcon.scss';
+
+import styles from './WeatherIcon.module.scss';
 
 const WeatherIcon = ({ iconName }) => {
   return (
-    <div className='weather-icon'>
-      <img src={`https://www.metaweather.com/static/img/weather/${iconName}.svg`} alt="weather icon"/>
-    </div>
+    <img src={`https://www.metaweather.com/static/img/weather/${iconName}.svg`} alt="weather icon"/>
   );
 }
 

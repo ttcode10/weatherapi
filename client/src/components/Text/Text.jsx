@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './Text.scss';
-
 const Text = ({size, title, children, unit, ...otherProps}) => {
   switch(size) {
     case 'lg':
