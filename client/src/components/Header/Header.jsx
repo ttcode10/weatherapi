@@ -2,12 +2,17 @@ import React from 'react';
 
 import styles from './Header.module.scss';
 
-import Search from './components/Search';
-
-const Header = () => {
+const Header = ({onSearchChange}) => {
   return (
     <div className={styles.container}>
-      <Search />
+      <div className={styles.wrapper}>
+        <input
+          type="text"
+          placeholder="Search any world city..."
+          onChange={onSearchChange}
+        />
+        <span className="fa fa-search no-results"></span>
+      </div>
     </div>
   );
 }
